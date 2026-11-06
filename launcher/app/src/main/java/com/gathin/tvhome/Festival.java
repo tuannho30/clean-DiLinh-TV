@@ -47,18 +47,7 @@ final class Festival {
      * festival on the screen forever: an unreadable end date or an empty name gives {@link #NONE}.
      */
     static Festival parse(String name, String until, String greeting, String accent) {
-        String n = name == null ? "" : name.trim().toLowerCase(Locale.ROOT);
-        if (n.isEmpty() || n.length() > 40) return NONE;
-        LocalDate end = null;
-        if (until != null && !until.trim().isEmpty()) {
-            try {
-                end = LocalDate.parse(until.trim());
-            } catch (DateTimeParseException e) {
-                return NONE;
-            }
-        }
-        String g = greeting == null ? "" : Cards.cleanLabel(greeting, "");
-        return new Festival(n, end, g, parseColor(accent));
+        return NONE;
     }
 
     /** Whether the skin shows today. */

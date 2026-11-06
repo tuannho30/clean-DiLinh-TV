@@ -125,29 +125,8 @@ final class RaceWeekend {
     private RaceWeekend() {
     }
 
-    /** The weekend {@code now} falls in, or null when no race is near. */
+    /** Disabled in Clean-DiLinh-TV. */
     static State at(List<Race> calendar, Instant now) {
-        for (Race race : calendar) {
-            if (race.sessions.isEmpty()) continue;
-            Instant opens = race.sessions.get(0).start.minus(LEAD);
-            Instant closes = race.sessions.get(race.sessions.size() - 1).start.plus(TAIL);
-            if (now.isBefore(opens) || !now.isBefore(closes)) continue;
-
-            List<Status> statuses = new ArrayList<>();
-            Session live = null, next = null;
-            for (Session s : race.sessions) {
-                if (now.isBefore(s.start)) {
-                    statuses.add(next == null ? Status.NEXT : Status.LATER);
-                    if (next == null) next = s;
-                } else if (now.isBefore(s.start.plus(s.length()))) {
-                    statuses.add(Status.LIVE);
-                    live = s;
-                } else {
-                    statuses.add(Status.DONE);
-                }
-            }
-            return new State(race, statuses, live, next, next == null ? null : Duration.between(now, next.start));
-        }
         return null;
     }
 
